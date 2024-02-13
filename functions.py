@@ -6,10 +6,12 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
 import base64
-import re
+import cv2
+import os
 #------- OCR ------------
 import pdf2image
 import pytesseract
+import shutil
 from pytesseract import Output, TesseractError
 
 pytesseract.pytesseract.tesseract_cmd = None
@@ -18,14 +20,19 @@ def find_tesseract_binary() -> str:
     return shutil.which("tesseract")
 
 @st.cache_data
-def images_to_txt(path, language):
-    images = pdf2image.convert_from_bytes(path,poppler_path=r'C:\Program Files\poppler-23.11.0\Library\bin', grayscale=True)
+def images_to_txt(path_file, language):
+    # images = pdf2image.convert_from_bytes(path,poppler_path=r'C:\Program Files\poppler-23.11.0\Library\bin', grayscale=True)
+    # extention = os.path.splitext(path_file)[1] 
+    # path.lower().endswith(('.png', '.jpg', '.jpeg'))
+    # if extention.lower()==".pdf":
+    images = pdf2image.convert_from_bytes(path_file, grayscale=True)
     
     all_text = []
     # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
     pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
     if not pytesseract.pytesseract.tesseract_cmd:
         st.error("Tesseract binary not found in PATH. Please install Tesseract.")
+        
     for i in images:
         pil_im = i
         text = pytesseract.image_to_string(pil_im, lang=language)
@@ -33,7 +40,6 @@ def images_to_txt(path, language):
         # ocr_dict now holds all the OCR info including text and location on the image
         # text = " ".join(ocr_dict['text'])
         # text = re.sub('[ ]{2,}', '\n', text)
-        print(text)
         all_text.append(text)       
     return all_text, len(all_text)
 

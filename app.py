@@ -3,7 +3,7 @@ import pdf2image
 from PIL import Image
 import pytesseract
 from pytesseract import Output, TesseractError
-from functions import convert_pdf_to_txt_pages, convert_pdf_to_txt_file, save_pages, displayPDF, images_to_txt
+from functions import convert_pdf_to_txt_pages, convert_pdf_to_txt_file, save_pages, displayPDF, images_to_txt, find_tesseract_binary
 
 st.set_page_config(page_title="PDF to Text")
 
@@ -113,12 +113,17 @@ if pdf_file:
                 )
     else:
         option = st.selectbox("What's the language of the text in the image?", list(languages.keys()))
-        pil_image = Image.open(pdf_file)
+        pil_image = Image.open(pdf_file).convert('LA')
+        pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
+        if not pytesseract.pytesseract.tesseract_cmd:
+            st.error("Tesseract binary not found in PATH. Please install Tesseract.")
+            
         text = pytesseract.image_to_string(pil_image, lang=languages[option])
         col1, col2 = st.columns(2)
         with col1:
             with st.expander("Display Image"):
                 st.image(pdf_file)
+                # st.image(pil_image)
         with col2:
             with st.expander("Display Text"):
                 st.info(text)
