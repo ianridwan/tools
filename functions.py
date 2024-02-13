@@ -6,7 +6,6 @@ from pdfminer.layout import LAParams
 from pdfminer.pdfpage import PDFPage
 from io import StringIO
 import base64
-import cv2
 import os
 #------- OCR ------------
 import pdf2image
