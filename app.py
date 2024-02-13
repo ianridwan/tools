@@ -3,6 +3,7 @@ import pdf2image
 from PIL import Image
 import pytesseract
 from pytesseract import Output, TesseractError
+from streamlit_option_menu import option_menu
 from functions import convert_pdf_to_txt_pages, convert_pdf_to_txt_file, save_pages, displayPDF, images_to_txt, find_tesseract_binary
 
 st.set_page_config(page_title="PDF to Text")
@@ -32,29 +33,31 @@ languages = {
 }
 
 with st.sidebar:
-    st.title(":outbox_tray: PDF to Text")
-    textOutput = st.selectbox(
+    
+    selected = option_menu("Main Menu", ["OCR", 'Delimiter'], 
+        icons=['house', 'gear'], menu_icon="cast", default_index=0)
+    selected
+    # st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
+    # st.markdown("""
+    # # How does it work?
+    # Simply load your PDF and convert it to single-page or multi-page text.
+    # """)
+    # st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
+    
+    # st.markdown(
+    #     """
+    #     <a href="buymeacoffee.com/ridwan_just" target="_blank">
+    #     <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
+    #     </a>
+    #     """,
+    #     unsafe_allow_html=True,
+    # )
+    
+st.title(":outbox_tray: PDF to Text")
+textOutput = st.selectbox(
         "How do you want your output text?",
         ('One text file (.txt)', 'Text file per page (ZIP)'))
-    ocr_box = st.checkbox('Enable OCR (scanned document)')
-    
-    st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-    st.markdown("""
-    # How does it work?
-    Simply load your PDF and convert it to single-page or multi-page text.
-    """)
-    st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-    
-    st.markdown(
-        """
-        <a href="buymeacoffee.com/ridwan_just" target="_blank">
-        <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
-        </a>
-        """,
-        unsafe_allow_html=True,
-    )
-    
-
+ocr_box = st.checkbox('Enable OCR (scanned document)')
 pdf_file = st.file_uploader("Load your PDF", type=['pdf', 'png', 'jpg'])
 hide="""
 <style>
