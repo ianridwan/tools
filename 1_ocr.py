@@ -31,26 +31,35 @@ languages = {
     'Spanish': 'spa',
 }
 
-with st.sidebar:
+# with st.sidebar:
+    # if st.session_state.get('switch_button', False):
+    #     st.session_state['menu_option'] = (st.session_state.get('menu_option', 0) + 1) % 4
+    #     manual_select = st.session_state['menu_option']
+    # else:
+    #     manual_select = None
+    # selected = option_menu(None, ["OCR", "Delimeter"], 
+    #     icons=['cloud-upload', "list-task"], 
+    #     manual_select=manual_select, key='menu_2')
+    # # st.button(f"Move to Next {st.session_state.get('menu_option', 1)}", key='switch_button')
+    # selected
+    # selected = option_menu("Main Menu", ["OCR", 'Delimiter'], 
+    #     icons=['house', 'gear'], menu_icon="cast", default_index=0)
+    # selected
+#     # st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
+#     # st.markdown("""
+#     # # How does it work?
+#     # Simply load your PDF and convert it to single-page or multi-page text.
+#     # """)
+#     # st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
     
-    selected = option_menu("Main Menu", ["OCR", 'Delimiter'], 
-        icons=['house', 'gear'], menu_icon="cast", default_index=0)
-    selected
-    # st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-    # st.markdown("""
-    # # How does it work?
-    # Simply load your PDF and convert it to single-page or multi-page text.
-    # """)
-    # st.markdown(html_temp.format("rgba(55, 53, 47, 0.16)"),unsafe_allow_html=True)
-    
-    # st.markdown(
-    #     """
-    #     <a href="buymeacoffee.com/ridwan_just" target="_blank">
-    #     <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
-    #     </a>
-    #     """,
-    #     unsafe_allow_html=True,
-    # )
+#     # st.markdown(
+#     #     """
+#     #     <a href="buymeacoffee.com/ridwan_just" target="_blank">
+#     #     <img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174">
+#     #     </a>
+#     #     """,
+#     #     unsafe_allow_html=True,
+#     # )
     
 st.title(":outbox_tray: PDF to Text")
 textOutput = st.selectbox(
