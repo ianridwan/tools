@@ -12,12 +12,20 @@ import pdf2image
 import pytesseract
 from pytesseract import Output, TesseractError
 
+pytesseract.pytesseract.tesseract_cmd = None
+@st.cache_resource
+def find_tesseract_binary() -> str:
+    return shutil.which("tesseract")
+
 @st.cache_data
 def images_to_txt(path, language):
     images = pdf2image.convert_from_bytes(path,poppler_path=r'C:\Program Files\poppler-23.11.0\Library\bin', grayscale=True)
     
     all_text = []
-    pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    # pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+    pytesseract.pytesseract.tesseract_cmd = find_tesseract_binary()
+    if not pytesseract.pytesseract.tesseract_cmd:
+        st.error("Tesseract binary not found in PATH. Please install Tesseract.")
     for i in images:
         pil_im = i
         text = pytesseract.image_to_string(pil_im, lang=language)
