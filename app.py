@@ -25,7 +25,6 @@ st.markdown("""
     
 """)
 languages = {
-    'Indonesian':'ind',
     'English': 'eng',
     'French': 'fra',
     'Arabic': 'ara',
