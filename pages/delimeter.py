@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-import pyperclip
+import clipboard
     # Custom CSS to modify the textarea width and height
 custom_css = '''
     <style>
@@ -18,8 +18,7 @@ st.write(f'Jumlah {count_data} Data.')
 delimiter=st.text_input("Delimiter",value=",")
 if txt:
     df = txt.replace("\n",delimiter)
-    pyperclip.copy(df)
-    pyperclip.waitForNewPaste()
+    clipboard.copy(df)
     st.warning('Berhasil Copy', icon="⚠️")
 else:
     df=""
