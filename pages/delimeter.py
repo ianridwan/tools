@@ -18,10 +18,9 @@ st.write(f'Jumlah {count_data} Data.')
 delimiter=st.text_input("Delimiter",value=",")
 if txt:
     df = txt.replace("\n",delimiter)
-else:
-    df=""
-txt= st.text_area("Result",value=df)
-if df!="":
     pyperclip.copy(df)
     pyperclip.waitForNewPaste()
     st.warning('Berhasil Copy', icon="⚠️")
+else:
+    df=""
+txt= st.text_area("Result",value=df)
