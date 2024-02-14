@@ -23,4 +23,5 @@ else:
 txt= st.text_area("Result",value=df)
 if df!="":
     pyperclip.copy(df)
+    pyperclip.waitForNewPaste()
     st.warning('Berhasil Copy', icon="⚠️")
